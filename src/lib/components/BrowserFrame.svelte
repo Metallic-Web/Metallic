@@ -413,8 +413,8 @@
   </div>
 
   <Frame
-    cache={false}
-    adblock={true}
+    cache={storage.settings.cache}
+    adblock={storage.settings.adblock}
     onpointerdown={() => {
       focused = false;
       typing = false;

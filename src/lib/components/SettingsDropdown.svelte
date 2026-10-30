@@ -4,7 +4,15 @@
   import themes from "#lib/assets/themes.js";
   import { storage } from "#lib/storage.svelte.js";
   import { clearSiteData, normalizeUrl } from "#lib/utils.js";
-  import { Ban, ChevronDown, Globe, Search, Settings } from "@lucide/svelte";
+  import {
+    Ban,
+    Check,
+    ChevronDown,
+    Globe,
+    Search,
+    Settings,
+    ShieldCheck,
+  } from "@lucide/svelte";
   import { fade, fly, slide } from "svelte/transition";
   import Switch from "./ui/Switch.svelte";
 
@@ -19,6 +27,9 @@
   let dropdownEl = $state();
   let openSection = $state(null);
   let recordingKey = $state(false);
+  let clearedHistory = $state(false);
+  let clearedSiteData = $state(false);
+  let timeoutId = null;
 
   const activePreset = $derived(
     searchPresets.find((e) => e.url === storage.settings.searchEngine),
@@ -86,6 +97,28 @@
     if (!checked) {
       storage.updateHistory([]);
     }
+  }
+
+  function handleResetHistory() {
+    storage.updateHistory([]);
+    clearedHistory = true;
+
+    if (timeoutId) clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      clearedHistory = false;
+    }, 2000);
+  }
+
+  function handleClearSiteData() {
+    clearSiteData();
+    clearedSiteData = true;
+
+    if (timeoutId) clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      clearedSiteData = false;
+    }, 2000);
   }
 </script>
 
@@ -371,14 +404,17 @@
 
       <div class="flex flex-col shrink-0">
         <div class="flex flex-col mb-2">
-          <span>Privacy & Advanced</span>
-          <span class="text-xs text-muted">Configure advanced options</span>
+          <span>Privacy</span>
+          <span class="text-xs text-muted">Advanced privacy options</span>
         </div>
         <button
           onclick={() => toggleSection("advanced")}
           class="w-full h-8 shrink-0 px-2.5 rounded-lg bg-input/30 border border-input flex items-center justify-between cursor-pointer"
         >
-          <div class="flex items-center gap-2.5">Advanced Settings</div>
+          <div class="flex items-center gap-2.5">
+            <ShieldCheck size="16" class="text-muted" />
+            <div class="flex items-center gap-2.5">Privacy Settings</div>
+          </div>
           <ChevronDown
             size="16"
             class={"text-muted transition-transform duration-200 " +
@@ -391,6 +427,34 @@
             class="overflow-hidden shrink-0"
           >
             <div class="flex flex-col gap-2 pt-2">
+              <div class="flex items-center justify-between gap-4 shrink-0">
+                <div class="flex flex-col">
+                  <span>Adblock</span>
+                  <span class="text-xs text-muted"
+                    >Block known dangerous hosts</span
+                  >
+                </div>
+                <Switch
+                  aria-label="Adblock"
+                  checked={storage.settings.adblock}
+                  onchange={(e) =>
+                    storage.updateSetting("adblock", e.target.checked)}
+                />
+              </div>
+              <div class="flex items-center justify-between gap-4 shrink-0">
+                <div class="flex flex-col">
+                  <span>Cache Sites</span>
+                  <span class="text-xs text-muted"
+                    >Cache website data to the browser</span
+                  >
+                </div>
+                <Switch
+                  aria-label="Cache"
+                  checked={storage.settings.cache}
+                  onchange={(e) =>
+                    storage.updateSetting("cache", e.target.checked)}
+                />
+              </div>
               <div class="flex items-center justify-between gap-4 shrink-0">
                 <div class="flex flex-col">
                   <span>History</span>
@@ -425,16 +489,24 @@
                 </div>
                 <div class="flex gap-1.5">
                   <button
-                    onclick={() => storage.updateHistory([])}
-                    class="h-8 px-2.5 rounded-lg border border-input flex items-center justify-center cursor-pointer shrink-0 outline-0 bg-input/30"
+                    onclick={handleResetHistory}
+                    class="w-[68.3203px] h-8 px-2.5 rounded-lg border border-input flex items-center justify-center cursor-pointer shrink-0 outline-0 bg-input/30"
                   >
-                    History
+                    {#if clearedHistory}
+                      <Check size="15" />
+                    {:else}
+                      <span>History</span>
+                    {/if}
                   </button>
                   <button
-                    onclick={clearSiteData}
-                    class="h-8 px-2.5 rounded-lg border border-input flex items-center justify-center cursor-pointer shrink-0 outline-0 bg-input/30"
+                    onclick={handleClearSiteData}
+                    class="w-[80.6562px] h-8 px-2.5 rounded-lg border border-input flex items-center justify-center cursor-pointer shrink-0 outline-0 bg-input/30"
                   >
-                    Site Data
+                    {#if clearedSiteData}
+                      <Check size="15" />
+                    {:else}
+                      <span>Site Data</span>
+                    {/if}
                   </button>
                 </div>
               </div>

@@ -20,6 +20,8 @@ class StorageManager {
     panicKey: "",
     panicURL: "",
     history: true,
+    adblock: true,
+    cache: true,
   });
 
   constructor() {
@@ -102,7 +104,7 @@ class StorageManager {
     if (!this.settings.history) {
       return;
     }
-    
+
     const trimmed = item?.trim();
     if (!trimmed) return;
     const filtered = this.history.filter(
