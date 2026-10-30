@@ -19,6 +19,7 @@ class StorageManager {
     searchEngine: searchEngines.google,
     panicKey: "",
     panicURL: "",
+    history: true,
   });
 
   constructor() {
@@ -98,6 +99,10 @@ class StorageManager {
   }
 
   addHistory(item) {
+    if (!this.settings.history) {
+      return;
+    }
+    
     const trimmed = item?.trim();
     if (!trimmed) return;
     const filtered = this.history.filter(
