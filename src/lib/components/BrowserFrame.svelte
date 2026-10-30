@@ -398,7 +398,7 @@
     <button
       aria-label="Fullscreen"
       class="rounded-full flex items-center justify-center cursor-pointer transition-colors hover:bg-secondary size-8 shrink-0"
-      onclick={() => console.log("todo fullscreen frame")}
+      onclick={() => frame.fullscreen()}
     >
       <Maximize size="14" />
     </button>
