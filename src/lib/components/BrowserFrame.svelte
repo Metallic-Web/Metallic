@@ -50,6 +50,12 @@
           : null,
   );
 
+  function getItemText(item) {
+    if (item.type === "math") return item.data.result;
+    if (item.type === "rich") return item.data.title;
+    return item.fullURL;
+  }
+
   export function navigate(targetUrl, saveToHistory = true) {
     if (saveToHistory && targetUrl) storage.addHistory(targetUrl);
     url = targetUrl;
@@ -90,21 +96,24 @@
       const results = await chemical.autocomplete(val);
       if (url !== val || !typing) return;
 
-      const filtered = results
+      const mathItem = results.find((item) => item.type === "math");
+      const rest = results
         .filter((item) => {
-          const text = item.type === "rich" ? item.data.title : item.fullURL;
+          if (item.type === "math") return false;
+          const text = getItemText(item);
           return text?.toLowerCase() !== val.toLowerCase();
         })
-        .slice(0, 6);
+        .slice(0, mathItem ? 5 : 6);
 
-      suggestions = [
-        {
-          type: "plain",
-          data: [{ text: val, highlight: false }],
-          fullURL: val,
-        },
-        ...filtered,
-      ];
+      const rawItem = {
+        type: "plain",
+        data: [{ text: val, highlight: false }],
+        fullURL: val,
+      };
+
+      suggestions = mathItem
+        ? [mathItem, rawItem, ...rest]
+        : [rawItem, ...rest];
     }
   }
 
@@ -126,12 +135,18 @@
               ? list.length - 1
               : selectedIndex - 1;
         const item = list[selectedIndex];
-        url = item.type === "rich" ? item.data.title : item.fullURL;
+        url = getItemText(item);
         return;
       }
     }
 
-    if (e.key === "Enter" && url.trim()) {
+    if (e.key === "Enter" && (url || "").trim()) {
+      const selected = list[selectedIndex];
+      if (mode === "suggestions" && selected?.type === "math") {
+        e.preventDefault();
+        handleCopy(selected.data.result);
+        return;
+      }
       navigate(url, true);
       e.target.blur();
     } else if (e.key === "Escape") {
@@ -215,7 +230,7 @@
             bind:value={url}
             onfocus={() => {
               focused = true;
-              typing = url.trim().length > 0 && suggestions.length > 0;
+              typing = (url || "").trim().length > 0 && suggestions.length > 0;
               selectedIndex = typing ? 0 : -1;
             }}
             onkeydown={handleKeydown}
@@ -272,7 +287,7 @@
                   <button
                     onclick={() => handleCopy(suggestion.data.result)}
                     onmouseenter={() => (selectedIndex = i)}
-                    class={"text-left w-full h-8 cursor-pointer flex items-center transition-colors " +
+                    class={"text-left w-full h-8 pr-1.5 cursor-pointer flex items-center transition-colors " +
                       (selectedIndex === i
                         ? "bg-input/30"
                         : "hover:bg-input/30")}
@@ -283,22 +298,19 @@
                       <Calculator class="text-muted" size="15" />
                     </div>
                     <div
-                      class="h-full w-full min-w-0 flex items-center text-sm"
+                      class="h-full w-full min-w-0 flex items-center justify-between text-sm"
                     >
-                      <p class="leading-4.5 truncate w-full">
+                      <p class="leading-4.5 truncate">
                         <span>{suggestion.data.equation}</span>
-                        <span>
-                          <span>=</span>
-                          {suggestion.data.result}
-                        </span>
+                        <span>= {suggestion.data.result}</span>
                       </p>
                       <div
-                        class="size-7 rounded-full flex items-center justify-center text-muted hover:text-primary hover:bg-secondary/50 transition-colors cursor-pointer shrink-0"
+                        class="size-6 rounded-full flex items-center justify-center text-muted hover:bg-input/30 transition-colors cursor-pointer shrink-0"
                       >
                         {#if copied}
-                          <Check size="15" />
+                          <Check size="14" />
                         {:else}
-                          <Copy size="15" />
+                          <Copy size="14" />
                         {/if}
                       </div>
                     </div>
