@@ -77,3 +77,49 @@ export async function fetchIcon(chemical, rawUrl) {
     return "";
   }
 }
+
+export function clearSiteData() {
+  const keysToPreserve = [
+    "apps",
+    "theme",
+    "settings",
+    "history",
+    "playobsidian.com@theme",
+    "playobsidian.com@libraryModeDismissed",
+    "playobsidian.com@settings",
+  ];
+
+  const preservedData = {};
+  keysToPreserve.forEach((key) => {
+    const value = localStorage.getItem(key);
+    if (value !== null) {
+      preservedData[key] = value;
+    }
+  });
+
+  localStorage.clear();
+
+  Object.keys(preservedData).forEach((key) => {
+    localStorage.setItem(key, preservedData[key]);
+  });
+
+  sessionStorage.clear();
+
+  if (window.indexedDB && window.indexedDB.databases) {
+    window.indexedDB
+      .databases()
+      .then((databases) => {
+        databases.forEach((db) => {
+          window.indexedDB.deleteDatabase(db.name);
+        });
+      })
+      .catch((err) => console.error("Error clearing IndexedDB:", err));
+  }
+
+  document.cookie.split(";").forEach((cookie) => {
+    const eqPos = cookie.indexOf("=");
+    const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
+    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=${window.location.hostname}`;
+  });
+}

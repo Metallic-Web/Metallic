@@ -3,9 +3,10 @@
   import searchPresets from "#lib/assets/searchPresets.js";
   import themes from "#lib/assets/themes.js";
   import { storage } from "#lib/storage.svelte.js";
-  import { normalizeUrl } from "#lib/utils.js";
+  import { clearSiteData, normalizeUrl } from "#lib/utils.js";
   import { Ban, ChevronDown, Globe, Search, Settings } from "@lucide/svelte";
   import { fade, fly, slide } from "svelte/transition";
+  import Switch from "./ui/Switch.svelte";
 
   let {
     open = $bindable(false),
@@ -63,6 +64,27 @@
       e.key === storage.settings.panicKey
     ) {
       window.location.replace(normalizeUrl(storage.settings.panicURL));
+    }
+  }
+  function aboutBlankCloak() {
+    const currentURL = window.location.href;
+    const win = window.open("about:blank", "_blank");
+
+    if (win) {
+      win.document.write(
+        `<body style="margin:0"><iframe src="${currentURL}" style="width:100vw;height:100vh;border:none;display:block"></iframe></body>`,
+      );
+      win.document.close();
+    }
+
+    window.location.replace("about:blank");
+  }
+
+  function historyToggle(checked) {
+    storage.updateSetting("history", checked);
+
+    if (!checked) {
+      storage.updateHistory([]);
     }
   }
 </script>
@@ -345,6 +367,80 @@
             class="flex-1 min-w-0 h-8 px-2.5 rounded-lg bg-input/30 border border-input outline-none placeholder:text-muted"
           />
         </div>
+      </div>
+
+      <div class="flex flex-col shrink-0">
+        <div class="flex flex-col mb-2">
+          <span>Privacy & Advanced</span>
+          <span class="text-xs text-muted">Configure advanced options</span>
+        </div>
+        <button
+          onclick={() => toggleSection("advanced")}
+          class="w-full h-8 shrink-0 px-2.5 rounded-lg bg-input/30 border border-input flex items-center justify-between cursor-pointer"
+        >
+          <div class="flex items-center gap-2.5">Advanced Settings</div>
+          <ChevronDown
+            size="16"
+            class={"text-muted transition-transform duration-200 " +
+              (openSection === "advanced" ? "rotate-180" : "")}
+          />
+        </button>
+        {#if openSection === "advanced"}
+          <div
+            transition:slide={{ duration: 200 }}
+            class="overflow-hidden shrink-0"
+          >
+            <div class="flex flex-col gap-2 pt-2">
+              <div class="flex items-center justify-between gap-4 shrink-0">
+                <div class="flex flex-col">
+                  <span>History</span>
+                  <span class="text-xs text-muted"
+                    >Save search history in browser</span
+                  >
+                </div>
+                <Switch
+                  aria-label="History"
+                  checked={storage.settings.history}
+                  onchange={(e) => historyToggle(e.target.checked)}
+                />
+              </div>
+              <div class="flex items-center justify-between gap-4 shrink-0">
+                <div class="flex flex-col">
+                  <span>about:blank cloak</span>
+                  <span class="text-xs text-muted"
+                    >Open in an about:blank window</span
+                  >
+                </div>
+                <button
+                  onclick={aboutBlankCloak}
+                  class="h-8 px-2.5 rounded-lg border border-input flex items-center justify-center cursor-pointer shrink-0 outline-0 bg-input/30"
+                >
+                  Open
+                </button>
+              </div>
+              <div class="flex items-center justify-between gap-4 shrink-0">
+                <div class="flex flex-col">
+                  <span>Clear Data</span>
+                  <span class="text-xs text-muted">Delete browser data</span>
+                </div>
+                <div class="flex gap-1.5">
+                  <button
+                    onclick={() => storage.updateHistory([])}
+                    class="h-8 px-2.5 rounded-lg border border-input flex items-center justify-center cursor-pointer shrink-0 outline-0 bg-input/30"
+                  >
+                    History
+                  </button>
+                  <button
+                    onclick={clearSiteData}
+                    class="h-8 px-2.5 rounded-lg border border-input flex items-center justify-center cursor-pointer shrink-0 outline-0 bg-input/30"
+                  >
+                    Site Data
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        {/if}
       </div>
     </div>
   {/if}
