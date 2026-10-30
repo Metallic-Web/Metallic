@@ -11,7 +11,9 @@
   </div>
 
   <div class="flex items-center gap-4">
-  <a class="text-muted hover:underline" href={"mailto:" + links.email}>Contact</a>
+    <a class="text-muted hover:underline" href={"mailto:" + links.email}
+      >Contact</a
+    >
     <a class="text-muted hover:underline" href="/terms">Terms of Service</a>
     <a class="text-muted hover:underline" href="/privacy">Privacy Policy</a>
     <div class="flex items-center gap-6 mx-2">
