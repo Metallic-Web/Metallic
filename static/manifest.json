@@ -1,0 +1,46 @@
+{
+  "id": "metallic",
+  "name": "Metallic",
+  "description": "Built for speed and customization.",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "landscape",
+  "background_color": "#0c1618",
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "icons": [
+    {
+      "src": "/assets/logo-180.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "/assets/logo-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/logo-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/screenshot_home.png",
+      "sizes": "1280x720",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "The Metallic homepage"
+    },
+    {
+      "src": "/assets/screenshot_google.png",
+      "sizes": "1280x720",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "Browsing Google"
+    }
+  ]
+}

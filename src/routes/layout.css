@@ -1,0 +1,114 @@
+@import "tailwindcss";
+@source "../lib";
+
+html[data-theme="Metallic"] {
+  --theme-background: #0c1618;
+  --theme-foreground: var(--color-neutral-50);
+  --theme-card: #002931;
+  --theme-primary: #297151;
+  --theme-secondary: var(--color-neutral-800);
+  --theme-muted: var(--color-gray-400);
+  --theme-border: rgb(255 255 255 / 10%);
+  --theme-input: rgb(255 255 255 / 15%);
+}
+
+html[data-theme="Space"] {
+  --theme-background: var(--color-slate-900);
+  --theme-foreground: var(--color-slate-50);
+  --theme-card: var(--color-slate-800);
+  --theme-primary: var(--color-blue-700);
+  --theme-secondary: var(--color-slate-700);
+  --theme-muted: var(--color-slate-400);
+  --theme-border: rgb(255 255 255 / 10%);
+  --theme-input: rgb(255 255 255 / 15%);
+}
+
+html[data-theme="Lime"] {
+  --theme-background: var(--color-neutral-900);
+  --theme-foreground: var(--color-neutral-50);
+  --theme-card: var(--color-neutral-800);
+  --theme-primary: var(--color-lime-200);
+  --theme-secondary: var(--color-neutral-700);
+  --theme-muted: var(--color-neutral-400);
+  --theme-border: rgb(255 255 255 / 10%);
+  --theme-input: rgb(255 255 255 / 15%);
+}
+
+html[data-theme="Sunset"] {
+  --theme-background: #2a2024;
+  --theme-foreground: #f2e9e4;
+  --theme-card: #392f35;
+  --theme-primary: #ff7e5f;
+  --theme-secondary: #463a41;
+  --theme-muted: #d7c6bc;
+  --theme-border: rgb(255 255 255 / 10%);
+  --theme-input: rgb(255 255 255 / 15%);
+}
+
+html[data-theme="Catppuccin Mocha"] {
+  --theme-background: #11111b;
+  --theme-foreground: #cdd6f4;
+  --theme-card: #1e1e2e;
+  --theme-primary: #89b4fa;
+  --theme-secondary: #313244;
+  --theme-muted: #a6adc8;
+  --theme-border: rgb(255 255 255 / 10%);
+  --theme-input: rgb(255 255 255 / 15%);
+}
+
+html[data-theme="Catppuccin Macchiato"] {
+  --theme-background: #181926;
+  --theme-foreground: #cad3f5;
+  --theme-card: #24273a;
+  --theme-primary: #8aadf4;
+  --theme-secondary: #363a4f;
+  --theme-muted: #a5adcb;
+  --theme-border: rgb(255 255 255 / 10%);
+  --theme-input: rgb(255 255 255 / 15%);
+}
+
+html[data-theme="Catppuccin Frappé"] {
+  --theme-background: #232634;
+  --theme-foreground: #c6d0f5;
+  --theme-card: #303446;
+  --theme-primary: #8caaee;
+  --theme-secondary: #414559;
+  --theme-muted: #a5adce;
+  --theme-border: rgb(255 255 255 / 10%);
+  --theme-input: rgb(255 255 255 / 15%);
+}
+
+html[data-theme="Catppuccin Latte"] {
+  --theme-background: #dce0e8;
+  --theme-foreground: #4c4f69;
+  --theme-card: #eff1f5;
+  --theme-primary: #1e66f5;
+  --theme-secondary: #ccd0da;
+  --theme-muted: #6c6f85;
+  --theme-border: #ccd0da;
+  --theme-input: #bcc0cc;
+}
+
+@theme inline {
+  --font-typeset: var(--font-sans);
+  --color-background: var(--theme-background);
+  --color-foreground: var(--theme-foreground);
+  --color-card: var(--theme-card);
+  --color-primary: var(--theme-primary);
+  --color-secondary: var(--theme-secondary);
+  --color-muted: var(--theme-muted);
+  --color-border: var(--theme-border);
+  --color-input: var(--theme-input);
+  --color-overlay: color-mix(
+    in oklab,
+    var(--color-background) 40%,
+    transparent
+  );
+  --radius-sm: calc(0.625rem * 0.6);
+  --radius-md: calc(0.625rem * 0.8);
+  --radius-lg: 0.625rem;
+  --radius-xl: calc(0.625rem * 1.4);
+  --radius-2xl: calc(0.625rem * 1.8);
+  --radius-3xl: calc(0.625rem * 2.2);
+  --radius-4xl: calc(0.625rem * 2.6);
+}

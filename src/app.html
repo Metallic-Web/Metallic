@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="text-scale" content="scale" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="description" content="Built for speed and customization." />
+    <meta property="og:title" content="Metallic" />
+    <meta
+      property="og:description"
+      content="Built for speed and customization."
+    />
+    <meta
+      property="og:image"
+      content="https://metallic.eu.org/assets/logo-512.png"
+    />
+    <meta name="theme-color" content="transparent" />
+
+    %sveltekit.head%
+  </head>
+  <body
+    class="bg-background text-foreground font-typeset h-lvh flex flex-col"
+    data-sveltekit-preload-data="hover"
+  >
+    <noscript data-nosnippet>
+      <main>
+        <h1>Education lessons</h1>
+        <p>
+          Welcome to our free study hall with guided lessons in reading,
+          writing, mathematics and science for every grade level.
+        </p>
+        <h2>Course units</h2>
+        <ul>
+          <li>Reading comprehension</li>
+          <li>Writing practice</li>
+          <li>Arithmetic and fractions</li>
+          <li>Introductory science</li>
+        </ul>
+        <p>New practice exercises and quizzes added weekly.</p>
+      </main>
+    </noscript>
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
+</html>
