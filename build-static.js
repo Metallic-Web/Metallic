@@ -63,6 +63,16 @@ try {
     await fs.mkdir(path.dirname(target), { recursive: true });
     await fs.copyFile(src, target);
   }
+
+  const swCode = `importScripts("./controller/controller.sw.js");
+
+addEventListener("fetch", (e) => {
+  if ($scramjetController.shouldRoute(e)) {
+    e.respondWith($scramjetController.route(e));
+  }
+});
+`;
+  await fs.writeFile(path.join(DIST, "sw.js"), swCode, "utf-8");
 } finally {
   await fs.rm(TMP, { recursive: true, force: true });
 }
