@@ -140,7 +140,7 @@
                   e.stopPropagation();
                   storage.removeHistory(item);
                 }}
-                class="size-7 rounded-full flex items-center justify-center text-muted hover:text-primary hover:bg-secondary/50 transition-colors cursor-pointer shrink-0"
+                class="size-7 rounded-full flex items-center justify-center text-muted hover:bg-input/30 transition-colors cursor-pointer shrink-0"
               >
                 <X size="15" />
               </button>
@@ -169,7 +169,7 @@
                   </p>
                 </div>
                 <div
-                  class="size-7 rounded-full flex items-center justify-center text-muted hover:text-primary hover:bg-secondary/50 transition-colors cursor-pointer shrink-0"
+                  class="size-7 rounded-full flex items-center justify-center text-muted hover:bg-input/30 transition-colors cursor-pointer shrink-0"
                 >
                   {#if copied}
                     <Check size="15" />

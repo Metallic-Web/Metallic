@@ -481,7 +481,7 @@
               </div>
               <div class="flex items-center justify-between gap-4 shrink-0">
                 <div class="flex flex-col">
-                  <span>about:blank cloak</span>
+                  <span>about:blank Cloak</span>
                   <span class="text-xs text-muted"
                     >Open in an about:blank window</span
                   >
@@ -496,7 +496,7 @@
               <div class="flex items-center justify-between gap-4 shrink-0">
                 <div class="flex flex-col">
                   <span>Clear Data</span>
-                  <span class="text-xs text-muted">Delete browser data</span>
+                  <span class="text-xs text-muted">Delete stored data</span>
                 </div>
                 <div class="flex gap-1.5">
                   <button
