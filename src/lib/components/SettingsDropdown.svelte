@@ -4,6 +4,7 @@
   import themes from "#lib/assets/themes.js";
   import { storage } from "#lib/storage.svelte.js";
   import { clearSiteData, normalizeUrl } from "#lib/utils.js";
+  import { env } from "$env/dynamic/public";
   import {
     Ban,
     Check,
@@ -29,11 +30,9 @@
   let clearedHistory = $state(false);
   let clearedSiteData = $state(false);
   let timeoutId = null;
-  let defaultWisp =
-    (location.protocol === "https:" ? "wss" : "ws") +
-    "://" +
-    location.host +
-    "/wisp/";
+  let defaultWisp = env.PUBLIC_WISP_URL
+    ? env.PUBLIC_WISP_URL.replace("{host}", location.hostname)
+    : `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/wisp/`;
 
   const activePreset = $derived(
     searchPresets.find((e) => e.url === storage.settings.searchEngine),
