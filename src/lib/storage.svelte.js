@@ -14,6 +14,12 @@ class StorageManager {
   history = $state([]);
   apps = $state(normalizeApps(defaultApps));
   settings = $state({
+    transport: "epoxy",
+    wisp:
+      (location.protocol === "https:" ? "wss" : "ws") +
+      "://" +
+      location.host +
+      "/wisp/",
     maskTitle: "",
     maskIcon: "",
     searchEngine: searchEngines.google,

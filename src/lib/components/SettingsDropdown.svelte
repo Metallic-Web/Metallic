@@ -18,9 +18,8 @@
 
   let {
     open = $bindable(false),
-    transport = $bindable("epoxy"),
+    transport = $bindable(""),
     wisp = $bindable(""),
-    defaultWisp = "",
   } = $props();
 
   let buttonEl = $state();
@@ -30,6 +29,11 @@
   let clearedHistory = $state(false);
   let clearedSiteData = $state(false);
   let timeoutId = null;
+  let defaultWisp =
+    (location.protocol === "https:" ? "wss" : "ws") +
+    "://" +
+    location.host +
+    "/wisp/";
 
   const activePreset = $derived(
     searchPresets.find((e) => e.url === storage.settings.searchEngine),
@@ -378,14 +382,20 @@
             class="flex bg-input/30 border border-input rounded-lg h-8 p-1 shrink-0"
           >
             <button
-              onclick={() => (transport = "epoxy")}
+              onclick={() => (
+                (transport = "epoxy"),
+                storage.updateSetting("transport", "epoxy")
+              )}
               class={"px-2 rounded-md transition-colors cursor-pointer " +
                 (transport === "epoxy" ? "bg-input" : "")}
             >
               Epoxy
             </button>
             <button
-              onclick={() => (transport = "libcurl")}
+              onclick={() => (
+                (transport = "libcurl"),
+                storage.updateSetting("transport", transport)
+              )}
               class={"px-2 rounded-md transition-colors cursor-pointer " +
                 (transport === "libcurl" ? "bg-input" : "")}
             >
@@ -395,7 +405,10 @@
           <input
             type="text"
             value={wisp === defaultWisp ? "" : wisp}
-            oninput={(e) => (wisp = e.target.value || defaultWisp)}
+            oninput={(e) => {
+              wisp = e.target.value || defaultWisp;
+              storage.updateSetting("wisp", wisp);
+            }}
             placeholder={defaultWisp}
             class="flex-1 min-w-0 h-8 px-2.5 rounded-lg bg-input/30 border border-input outline-none placeholder:text-muted"
           />

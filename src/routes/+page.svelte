@@ -14,13 +14,8 @@
 
   let chemical = $state();
   let ready = $state(false);
-  let transport = $state("epoxy");
-  let defaultWisp =
-    (location.protocol === "https:" ? "wss" : "ws") +
-    "://" +
-    location.host +
-    "/wisp/";
-  let wisp = $state(defaultWisp);
+  let transport = $state(storage.settings.transport);
+  let wisp = $state(storage.settings.wisp);
 
   let showApps = $state(false);
   let showSettings = $state(false);
@@ -49,7 +44,6 @@
   bind:open={showSettings}
   bind:transport
   bind:wisp
-  {defaultWisp}
 />
 
 <AppDialog bind:this={appDialog} {chemical} {ready} />

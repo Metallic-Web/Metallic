@@ -17,7 +17,8 @@
     "@x8r/sapphire": "^0.1.4",
     "chemicaljs": "^3.1.8",
     "tailwind-merge": "^3.7.0",
-    "tailwind-variants": "^3.3.1"
+    "tailwind-variants": "^3.3.1",
+    "tar": "^7.5.22"
   },
   "devDependencies": {
     "@sveltejs/kit": "^3.1.0",
