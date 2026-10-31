@@ -8,7 +8,7 @@
     "start": "node index.js",
     "dev": "vite dev",
     "build": "vite build && node build-static.js",
-    "build-static": "pnpm run build && ",
+    "build-static": "pnpm run build && node build-static.js",
     "preview": "vite preview"
   },
   "dependencies": {
