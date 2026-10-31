@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "vite dev",
-    "build": "vite build && node build-static.js",
+    "build": "vite build",
     "build-static": "pnpm run build && node build-static.js",
     "preview": "vite preview"
   },
