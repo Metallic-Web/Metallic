@@ -29,6 +29,9 @@ importers:
       tailwind-variants:
         specifier: ^3.3.1
         version: 3.3.1(tailwind-merge@3.7.0)(tailwindcss@4.3.3)
+      tar:
+        specifier: ^7.5.22
+        version: 7.5.22
     devDependencies:
       '@sveltejs/kit':
         specifier: ^3.1.0
