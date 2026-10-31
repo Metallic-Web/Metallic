@@ -1,5 +1,4 @@
 import defaultApps from "#lib/assets/apps.js";
-import { env } from "$env/dynamic/public";
 import searchEngines from "chemicaljs/searchEngines";
 
 function normalizeApps(list) {
@@ -16,8 +15,8 @@ class StorageManager {
   apps = $state(normalizeApps(defaultApps));
   settings = $state({
     transport: "epoxy",
-    wisp: env.PUBLIC_WISP_URL
-      ? env.PUBLIC_WISP_URL.replace("{host}", location.hostname)
+    wisp: import.meta.env.VITE_WISP_URL
+      ? import.meta.env.VITE_WISP_URL.replace("{host}", location.hostname)
       : `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/wisp/`,
     maskTitle: "",
     maskIcon: "",
