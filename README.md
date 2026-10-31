@@ -38,7 +38,7 @@ Run `pnpm dev` to run Metallic in development mode
 
 ### Building
 
-Run `pnpm build` to build Metallic to the `/build/` folder
+Run `pnpm build` to build Metallic to the `/build/` folder. If you are going to have an external wisp server and host Metallic statically use `pnpm run build-static` to bundle sw, controller, and Scramjet files.
 
 ### Service
 
