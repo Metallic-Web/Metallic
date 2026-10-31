@@ -5,7 +5,6 @@ import { ChemicalVitePlugin } from "chemicaljs";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "./",
   plugins: [
     ChemicalVitePlugin(),
     tailwindcss(),
@@ -24,6 +23,9 @@ export default defineConfig({
       }),
       prerender: {
         handleUnseenRoutes: "ignore",
+      },
+      paths: {
+        relative: false,
       },
     }),
   ],
