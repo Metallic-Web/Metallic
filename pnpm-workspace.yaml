@@ -1,5 +1,8 @@
+packages:
+  - "."
+
 allowBuilds:
-  '@mercuryworkshop/scramjet': true
+  "@mercuryworkshop/scramjet": true
   bufferutil: true
   esbuild: true
 minimumReleaseAgeExclude:
