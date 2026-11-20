@@ -5,6 +5,7 @@ import { ChemicalVitePlugin } from "chemicaljs";
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  envPrefix: ["VITE_", "PUBLIC_"],
   plugins: [
     ChemicalVitePlugin(),
     tailwindcss(),
