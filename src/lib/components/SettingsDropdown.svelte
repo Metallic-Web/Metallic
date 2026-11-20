@@ -79,6 +79,7 @@
       window.location.replace(normalizeUrl(storage.settings.panicURL));
     }
   }
+
   function aboutBlankCloak() {
     const currentURL = window.location.href;
     const win = window.open("about:blank", "_blank");
@@ -341,9 +342,9 @@
       <div class="flex flex-col gap-2 shrink-0">
         <div class="flex flex-col">
           <span>Panic Key</span>
-          <span class="text-xs text-muted"
-            >Emergency keybind & redirect URL</span
-          >
+          <span class="text-xs text-muted">
+            Emergency keybind & redirect URL
+          </span>
         </div>
         <div class="flex gap-1.5">
           <button
@@ -441,9 +442,9 @@
               <div class="flex items-center justify-between gap-4 shrink-0">
                 <div class="flex flex-col">
                   <span>Adblock</span>
-                  <span class="text-xs text-muted"
-                    >Block known dangerous hosts</span
-                  >
+                  <span class="text-xs text-muted">
+                    Block known dangerous hosts
+                  </span>
                 </div>
                 <Switch
                   aria-label="Adblock"
@@ -455,9 +456,9 @@
               <div class="flex items-center justify-between gap-4 shrink-0">
                 <div class="flex flex-col">
                   <span>Cache Sites</span>
-                  <span class="text-xs text-muted"
-                    >Cache website data to the browser</span
-                  >
+                  <span class="text-xs text-muted">
+                    Cache website data to the browser
+                  </span>
                 </div>
                 <Switch
                   aria-label="Cache"
@@ -469,9 +470,9 @@
               <div class="flex items-center justify-between gap-4 shrink-0">
                 <div class="flex flex-col">
                   <span>History</span>
-                  <span class="text-xs text-muted"
-                    >Save search history in browser</span
-                  >
+                  <span class="text-xs text-muted">
+                    Save search history in browser
+                  </span>
                 </div>
                 <Switch
                   aria-label="History"
@@ -482,9 +483,9 @@
               <div class="flex items-center justify-between gap-4 shrink-0">
                 <div class="flex flex-col">
                   <span>about:blank Cloak</span>
-                  <span class="text-xs text-muted"
-                    >Open in an about:blank window</span
-                  >
+                  <span class="text-xs text-muted">
+                    Open in an about:blank window
+                  </span>
                 </div>
                 <button
                   onclick={aboutBlankCloak}

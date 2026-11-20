@@ -44,6 +44,9 @@ Run `pnpm build` to build Metallic to the `/build/` folder. If you are going to 
 
 Run `pnpm start` to run Metallic on `localhost:8000`
 
+## Adsterra
+Rename `.env.example` to `.env` and configure values
+
 ## Developers
 
 [Nebelung](https://github.com/Nebelung-Dev) - Creator and developer

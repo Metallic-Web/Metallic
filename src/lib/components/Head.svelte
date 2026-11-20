@@ -2,6 +2,7 @@
   import { hiddenClass } from "#lib/utils.js";
   import logo from "#lib/assets/logo.svg";
   import { storage } from "#lib/storage.svelte.js";
+  import GlobalAds from "./GlobalAds.svelte";
 
   let { title, icon } = $props();
 
@@ -21,6 +22,8 @@
     storage.settings.maskIcon ? storage.settings.maskIcon : favicon,
   );
 </script>
+
+<GlobalAds />
 
 <svelte:head>
   <title>{activeTitle}</title>
